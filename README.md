@@ -53,6 +53,55 @@ Partager et récupérer le code avec un serveur distant (GitHub, GitLab...).
 *   `git pull` — Télécharge et fusionne directement les nouveautés distantes.
 *   `git push origin <branche>` — Envoie les commits locaux vers le serveur distant.
 
+##  6. Gestion des Erreurs & Annulations
+
+Corriger les fautes de frappe ou revenir en arrière en toute sécurité.
+
+*   `git checkout -- <fichier>` — Annule les modifications non enregistrées d'un fichier.
+*   `git reset HEAD <fichier>` — Retire un fichier de la zone de préparation sans perdre le code.
+*   `git reset --soft HEAD~1` — Annule le dernier commit mais conserve les modifications dans le code.
+*   `git reset --hard HEAD~1` — Efface définitivement le dernier commit et supprime toutes ses modifications.
+
+##  7. Résolution des Conflits de Fusion
+
+Un conflit survient lorsque Git ne sait pas quelle version du code choisir lors d'un `git merge` ou d'un `git pull`.
+
+### Processus de résolution :
+1.  **Identifier** : Git bloque la fusion et marque les fichiers en conflit. Tapez `git status` pour les lister.
+2.  **Ouvrir** : Ouvrez les fichiers concernés. Git insère des balises visuelles :
+    ```text
+    <<<<<<< HEAD
+    Mon code local actuel (Option A)
+    =======
+    Le code distant ou de l'autre branche (Option B)
+    >>>>>>> branche-conflit
+    ```
+3.  **Choisir** : Supprimez les balises et gardez uniquement le code final souhaité.
+4.  **Enregistrer** : Finalisez la fusion avec les commandes suivantes :
+    ```bash
+    git add <fichier-conflit>
+    git commit -m "Fix: résolution du conflit de fusion"
+    ```
+
+##  8. Bonnes Pratiques : Écrire de Bons Messages (Conventional Commits)
+
+Adopter un standard d'écriture permet de rendre l'historique du projet lisible par n'importe quel développeur et d'automatiser la création de rapports de version (Changelog).
+
+### Structure d'un commit :
+```text
+<type>(<portée_optionnelle>): <description courte au présent>
+```
+
+### Principaux types à utiliser :
+*   `feat`: Ajout d'une nouvelle fonctionnalité (ex: `feat(auth): ajout de la connexion Google`).
+*   `fix`: Correction d'un bug (ex: `fix(nav): correction du menu qui ne s'ouvre pas`).
+*   `docs`: Modification de la documentation ou du README (ex: `docs: mise à jour du guide de démarrage`).
+*   `style`: Changement cosmétique qui n'affecte pas le code (espaces, mise en page, point-virgule).
+*   `refactor`: Modification du code qui n'ajoute pas de fonction ni ne répare de bug.
+*   `test`: Ajout ou correction de tests unitaires.
+
+
+
 ---
  **Note** : Pensez à configurer un fichier `.gitignore` dès le début du projet pour éviter de suivre les fichiers sensibles ou inutiles (`.env`, `node_modules/`, etc.).
 
