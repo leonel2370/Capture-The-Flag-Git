@@ -1,41 +1,62 @@
 Cette Page regroupe des details pour un projet en Vue d'apprendre Git , une sorte de CTF du developeur pour la formation 48
 
 
-##  Outils Utilisés
-* **Git** (Log, Reflog, Fsck)
-* **TruffleHog / GitLeaks** *(Optionnel)*
-* **CyberChef** *(Optionnel)*
+#  Guide de Survie Git : Les Commandes de Base
 
-## Résolution (Step-by-Step)
+Ce guide regroupe de manière structurée les commandes Git fondamentales indispensables pour gérer et collaborer sur un projet.
 
-### Étape 1 : Analyse initiale
-J'ai commencé par cloner le dépôt et inspecter l'historique standard des commits :
-```bash
-git clone <url_du_depot>
-cd <nom_du_depot>
-git log --oneline
-```
-*Constat* : L'historique visible semblait propre, mais un message de commit mentionnait la suppression de fichiers temporaires.
+---
 
-### Étape 2 : Exploration de l'historique caché
-Pour retrouver les traces des commits supprimés ou modifiés, j'ai utilisé le journal de référence de Git :
-```bash
-git reflog
-```
-Cette commande a révélé un commit orphelin nommé `HEAD@{3}` avec le message *"Oops, credentials exposed"*.
+## 1. Initialisation & Configuration
 
-### Étape 3 : Extraction du Flag
-En inspectant le contenu de ce commit spécifique, le drapeau est apparu :
-```bash
-git show HEAD@{3}
-```
+Préparer l'environnement de travail et l'identité de l'auteur.
 
-## Flag
-```text
-FLAG{G1t_N3v3r_F0rg3ts_S3cr3ts}
-```
+*   `git init` — Initialise un nouveau dépôt Git local dans le dossier courant.
+*   `git clone <url>` — Copie un dépôt distant existant sur la machine.
+*   `git config --global user.name "Nom"` — Définit le nom de l'auteur des commits.
+*   `git config --global user.email "email"` — Définit l'adresse email de l'auteur.
 
-## Leçons apprises
-* **Git n'oublie rien** : Supprimer un fichier ou écraser un commit ne supprime pas instantanément les données de la base Git.
-* **Bonne pratique** : Toujours utiliser un fichier `.gitignore` avant le premier commit et faire tourner un outil comme *GitLeaks* en CI/CD.
+## 2. Suivi des Modifications
+
+Gérer l'état des fichiers et préparer les changements.
+
+*   `git status` — Liste les fichiers modifiés, supprimés ou non suivis.
+*   `git add <fichier>` — Ajoute un fichier spécifique à la zone de préparation (*Staging Area*).
+*   `git add .` — Ajoute l'ensemble des modifications à la zone de préparation.
+*   `git diff` — Visualise les changements précis non encore indexés.
+
+## 3. Enregistrement & Historique
+
+Sauvegarder l'état du projet et consulter son évolution.
+
+*   `git commit -m "Message"` — Enregistre les modifications indexées dans l'historique local.
+*   `git commit --amend` — Modifie le message ou le contenu du tout dernier commit.
+*   `git log` — Affiche l'historique complet et chronologique des commits.
+*   `git log --oneline` — Condense l'affichage de l'historique (un commit par ligne).
+
+##  4. Branches & Fusions
+
+Isoler le développement de nouvelles fonctionnalités.
+
+*   `git branch` — Liste les branches locales du projet.
+*   `git branch <nom>` — Crée une nouvelle branche à partir de la position actuelle.
+*   `git switch <nom>` — Bascule sur la branche spécifiée pour y travailler.
+*   `git merge <nom>` — Fusionne l'historique de la branche spécifiée dans la branche active.
+*   `git branch -d <nom>` — Supprime la branche locale spécifiée (si fusionnée).
+
+##  5. Synchronisation & Collaboration
+
+Partager et récupérer le code avec un serveur distant (GitHub, GitLab...).
+
+*   `git remote add origin <url>` — Lie le dépôt local à un serveur distant principal.
+*   `git fetch` — Récupère les données du serveur distant sans modifier le code local.
+*   `git pull` — Télécharge et fusionne directement les nouveautés distantes.
+*   `git push origin <branche>` — Envoie les commits locaux vers le serveur distant.
+
+---
+ **Note** : Pensez à configurer un fichier `.gitignore` dès le début du projet pour éviter de suivre les fichiers sensibles ou inutiles (`.env`, `node_modules/`, etc.).
+
+
+
+
 
